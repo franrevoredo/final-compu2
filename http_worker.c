@@ -127,8 +127,6 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr) {
         end = clock();
         ms = (double) (end - begin) / CLOCKS_PER_SEC;
 
-
-
         write(sd_conn, rhtml, strlen(rhtml)); //cabecera de respuesta HTML
 
         char httplines[LINECOUNT][LINEMAX];
