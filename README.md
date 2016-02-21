@@ -1,12 +1,15 @@
 # Trabajo Final Computación 2 - Universidad de Mendoza
 
+
+
+
 - **Alumno**: Francisco J. Revoredo (5810) (Ingeniería en Informática)
 - **Año**: 2015
 - **Materia**: Computación 2 
 
 ---
 
-**Descripción del Proyecto:**
+###Descripción del Proyecto:
 Software para cálculos paralelizables, distribuidos en un número arbitrario de threads.
 La interfaz de usuario está montanda en un servidor web (C), con soporte Html+CSS, por lo que la interfaz de usuario
 es casi totalmente independiente de la lógica de programación. El puerto para ingresar es el 5050 (Ejemplo localhost:5050)
@@ -15,21 +18,21 @@ crea la cantidad de hilos (arbitraria) para realizar los cálculos paralelizable
 
 ---
 
-**Criterio de Selección de los Algoritmos:**
+###Criterio de Selección de los Algoritmos:
 Teniendo en cuenta la ley de Amdahl, la mejora que se puede obtener en el tiempo de cómputo de determinado algoritmo depende de la
  cantidad de código paralelizable de dicho algoritmo. Sabiendo esto, se eligieron algoritmos que contienen un porcentaje total 
 o casi total de código paralelizable, conocidos como "Algoritmos perfectamente paralelos". Esto quiere decir que no existen dependencias de los datos, lo que tendería a serializar los cálculos.
 
 ---
 
-**Lista de Cálculos Disponibles**
+###Lista de Cálculos Disponibles
 
 1. **Cálculo de Pi por Regla de Simpson**
 2. **Cálculo de Pi por Montecarlo**
 
 ---
 
-**Descripción de los Métodos y su Implementación**
+###Descripción de los Métodos y su Implementación
 
 
 
