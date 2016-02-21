@@ -24,6 +24,8 @@ crea la cantidad de hilos (arbitraria) para realizar los cálculos paralelizable
 
 **Descripción de los métodos y su implementación**
 
+![alt text](https://github.com/franrevoredo/final-compu2/blob/master/img/simpson.jpg "Simpson")
+
 1. La regla de simpson es un método de integración numérica para obtener la aproximación
  de una integral.
 Sabiendo que la integral entre 0 y 1 de [4/(1+x²)] es igual a Pi, 
@@ -31,6 +33,9 @@ solamente hay dividir el intervalo de integración entre el total de threads inv
 y hacer que cada thread calcule un intervalo definido de la integral en cuestión. Una vez obtenido cada resultado parcial 
 con sumar todos los resultados parciales se obtiene la aproximación de pi.
 (Nota: Cada thread debe calcular la integral en un intervalo único, y la suma de todos los intervalos debe ser el intervalo original de la integral para que el cálculo sea correcto.)
+
+
+![alt text](https://github.com/franrevoredo/final-compu2/blob/master/img/montecarlo.jpg "Montecarlo")
 
 2. Los métodos montecarlo son algoritmos que se basan en muestras aleatorias 
 (suelen ser pseudo-aleatorias para simplificar los cálculos) para obtener aproximaciones numéricas. 
