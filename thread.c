@@ -18,7 +18,6 @@ void * thread(void *arg) {
     switch (method) {
         case 'a':
             id = (*(params_t*) (arg)).thr_id;
-
             ini = (coef * (id - 1)) + 1;
             j = coef * (id);
 
@@ -26,13 +25,12 @@ void * thread(void *arg) {
                 x = h * ((long double) i - 0.5);
                 aux = aux + (4.0 / (1.0 + x * x));
             }
-            
+
             pthread_mutex_lock(&(*(params_t*) (arg)).mutex);
             sum = sum + aux;
             pthread_mutex_unlock(&(*(params_t*) (arg)).mutex);
             
             printf("Thread: %d (%d - %d)\nSum: %Lf\n\n", id, ini, j, aux);
-
 
             break;
     }

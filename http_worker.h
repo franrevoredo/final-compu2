@@ -26,9 +26,7 @@ extern "C" {
 #include <math.h>
 
 #define RES_LEN 256
-#define LINECOUNT 6
-#define LINEMAX 384
-#define NUM_THREADS 10 
+#define NUM_THREADS 2 
 
 
     struct sockaddr *cli_addr;
@@ -57,6 +55,14 @@ extern "C" {
     } met_it_t;
 
     met_it_t met_it;
+
+    typedef struct calc_result { //Estructura que contiene el los distintos posibles resultados de los cálculos
+        long double exact;
+        unsigned int integer;
+    } calc_result_t;
+
+    extern calc_result_t result;
+
 
 
     void http_worker(int sd_conn, struct sockaddr *cli_addr);
