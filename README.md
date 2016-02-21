@@ -15,6 +15,13 @@ crea la cantidad de hilos (arbitraria) para realizar los cálculos paralelizable
 
 ---
 
+**Criterio de Selección de los Algoritmos:**
+Teniendo en cuenta la ley de Amdahl, la mejora que se puede obtener en el tiempo de cómputo de determinado algoritmo depende de la
+ cantidad de código paralelizable de dicho algoritmo. Sabiendo esto, se eligieron algoritmos que contienen un porcentaje total 
+o casi total de código paralelizable, conocidos como "Algoritmos perfectamente paralelos". Esto quiere decir que no existen dependencias de los datos, lo que tendería a serializar los cálculos.
+
+---
+
 **Lista de Cálculos Disponibles**
 
 1. **Cálculo de Pi por Regla de Simpson**
@@ -22,7 +29,7 @@ crea la cantidad de hilos (arbitraria) para realizar los cálculos paralelizable
 
 ---
 
-**Descripción de los métodos y su implementación**
+**Descripción de los Métodos y su Implementación**
 
 ![alt text](https://github.com/franrevoredo/final-compu2/blob/master/img/simpson.jpg "Simpson")
 
