@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-g -Wall -pthread
+CC=gcc 
+CFLAGS=-g -Wall -pthread -std=gnu99
 TARGETS=server
 
 all: $(TARGETS)

@@ -13,6 +13,7 @@ void write_result(int sd_conn, double ms, long long unsigned int it, char met, c
 
     switch (met) {
         case 'a':
+        {
             lines = 6;
             char httplines[lines][LINEMAX];
 
@@ -26,11 +27,26 @@ void write_result(int sd_conn, double ms, long long unsigned int it, char met, c
             for (i = 0; i < lines; i++) {
                 write(sd_conn, httplines[i], strlen(httplines[i]));
             }
+        }
+            break;
+        case 'b':
+        {
+            lines = 6;
+            char httplines[lines][LINEMAX];
 
+            snprintf(httplines[0], LINEMAX, "<head><title>Cálculo de Pi (Montecarlo)</title></head><body><h2><div style='text-decoration: underline;'>Calculo de Pi (Montecarlo)</div></h2>");
+            snprintf(httplines[1], LINEMAX, "<b>Cantidad de iteraciones:</b> %llu <br>", it);
+            snprintf(httplines[2], LINEMAX, "<b>El Valor de Pi es:</b> 3.1415926535897932384626433832795028841971693993751058209749445923078164 <br>");
+            snprintf(httplines[3], LINEMAX, "<b>El Valor de Pi es:</b> %.21Lf <br>", result.exact);
+            snprintf(httplines[4], LINEMAX, "<b>El tiempo de cálculo fue de:</b> %f segundos. <br><br>", ms);
+            snprintf(httplines[5], LINEMAX, "<div style='padding-left: 5px;'><a href='index.html'>Volver</a></div>");
+
+            for (i = 0; i < lines; i++) {
+                write(sd_conn, httplines[i], strlen(httplines[i]));
+            }
+        }
             break;
     }
-
-
 
     write(sd_conn, by, strlen(by));
     write(sd_conn, "\n\n", 2);

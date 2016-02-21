@@ -5,10 +5,12 @@
 extern "C" {
 #endif
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 #include <pthread.h>
 #include "http_worker.h"
 
-    
+
     void * thread(void *arg);
 
 #ifdef	__cplusplus

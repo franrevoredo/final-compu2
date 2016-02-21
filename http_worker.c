@@ -83,15 +83,25 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr) {
 
         begin = clock(); //Comienzo a medir el tiempo del cálculo
 
-        coef = met_it.it / NUM_THREADS; //Calculo cuantas iteraciones le corresponde a cada thread del pool.
-        h = 1.0 / (long double) met_it.it;
+        switch (met_it.met) {
+            case 'a':
+                coef = met_it.it / NUM_THREADS; //Calculo cuantas iteraciones le corresponde a cada thread del pool.
+                h = 1.0 / (long double) met_it.it;
+                break;
+            case 'b':
+                coef = met_it.it / NUM_THREADS; //Calculo cuantas iteraciones le corresponde a cada thread del pool.
+                break;
+        }
+
 
         params_t * params_array = malloc(NUM_THREADS * sizeof (params_t)); //Se crea un puntero para crear una estructura para cada thread.
 
         for (i = 0; i < NUM_THREADS; i++) {
 
             (params_array + i)->coef = coef;
-            (params_array + i)->h = h;
+            if (met_it.met == 'a') {
+                (params_array + i)->h = h;
+            }
             (params_array + i)->method = met_it.met;
             (params_array + i)->thr_id = i + 1;
 
@@ -106,16 +116,23 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr) {
         switch (met_it.met) {
             case 'a':
                 pi = sum * h; //Termino de Calcular Pi
-                result.exact = pi;
+                result.exact = pi; //Meto el resultado en la estructura de los resultados
+                break;
+            case 'b':
+                pi = (long double) (sum / met_it.it) * 4; //Termino de Calcular Pi
+                result.exact = pi; //Meto el resultado en la estructura de los resultados
                 break;
         }
 
         end = clock();
+
+        sum = 0.0; //Limpio la variable compartida
+
         ms = (double) (end - begin) / CLOCKS_PER_SEC; //Se calcula el tiempo total del cálculo
 
         write_result(sd_conn, ms, met_it.it, met_it.met, result);
 
-        sum = 0.0;
+
 
         free(params_array);
     }

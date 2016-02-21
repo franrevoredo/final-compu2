@@ -32,46 +32,88 @@ int checkext(char *arch) {
                     if (dif == 0) {
                         return 5;
                     } else {
-                        token2 = strrchr(token, '?'); //Si encuentra un '?' es por que no es un documento sino una operación
+                        dif = strcmp(token, "css");
+                        if (dif == 0) {
+                            return 6;
+                        } else {
+                            dif = strcmp(token, "md");
+                            if (dif == 0) {
+                                return 7;
+                            } else {
+                                token2 = strrchr(token, '?'); //Si encuentra un '?' es por que no es un documento sino una operación
 
-                        if (token2[0] == '?') {
-                            token2 = token2 + 1;
-
-                            switch (token2[0]) {
-
-                                case 'a':
+                                if (token2[0] == '?') {
                                     token2 = token2 + 1;
 
                                     switch (token2[0]) {
-                                        case '1':
-                                            return 11;
+                                            //Cálculo de Pi (Simpson)
+                                        case 'a':
+                                            token2 = token2 + 1;
+
+                                            switch (token2[0]) {
+                                                case '1':
+                                                    return 11;
+                                                    break;
+                                                case '2':
+                                                    return 1001;
+                                                    break;
+                                                case '3':
+                                                    return 100001;
+                                                    break;
+                                                case '4':
+                                                    return 1000001;
+                                                    break;
+                                                case '5':
+                                                    return 10000001;
+                                                    break;
+                                                case '6':
+                                                    return 50000001;
+                                                    break;
+                                                case '7':
+                                                    return 100000001;
+                                                    break;
+                                                case '8':
+                                                    return 100000001;
+                                                    break;
+                                            }
                                             break;
-                                        case '2':
-                                            return 1001;
-                                            break;
-                                        case '3':
-                                            return 100001;
-                                            break;
-                                        case '4':
-                                            return 1000001;
-                                            break;
-                                        case '5':
-                                            return 10000001;
-                                            break;
-                                        case '6':
-                                            return 50000001;
-                                            break;
-                                        case '7':
-                                            return 100000001;
-                                            break;
-                                        case '8':
-                                            return 100000001;
+
+                                            //Cálculo de Pi (Montecarlo)
+                                        case 'b':
+                                            token2 = token2 + 1;
+
+                                            switch (token2[0]) {
+                                                case '1':
+                                                    return 12;
+                                                    break;
+                                                case '2':
+                                                    return 1002;
+                                                    break;
+                                                case '3':
+                                                    return 100002;
+                                                    break;
+                                                case '4':
+                                                    return 1000002;
+                                                    break;
+                                                case '5':
+                                                    return 10000002;
+                                                    break;
+                                                case '6':
+                                                    return 50000002;
+                                                    break;
+                                                case '7':
+                                                    return 100000002;
+                                                    break;
+                                                case '8':
+                                                    return 100000002;
+                                                    break;
+                                            }
                                             break;
                                     }
-                                    break;
+                                } else {
+                                    return -1;
+                                }
                             }
-                        } else {
-                            return -1;
                         }
                     }
                 }

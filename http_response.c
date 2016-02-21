@@ -12,7 +12,8 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
     char rjpg[] = "HTTP/1.1 200 OK\nContent-Type: image/jpeg; charset=utf-8\nConnection:close\n\n";
     char rhtml[] = "HTTP/1.1 200 OK\nContent-Type: text/html; charset=utf-8\nConnection:close\n\n";
     char rico[] = "HTTP/1.1 200 OK\nContent-Type: image/x-icon; charset=utf-8\nConnection:close\n\n";
-
+    char rcss[] = "HTTP/1.1 200 OK\nContent-Type: text/css; charset=utf-8\nConnection:close\n\n";
+    char rmd[] = "HTTP/1.1 200 OK\nContent-Type: text/markdown; charset=utf-8\nConnection:close\n\n";
 
     switch (mime) {
         case 1:
@@ -60,6 +61,26 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
             write(sd_conn, "\n\n", 2);
             break;
 
+        case 6:
+            write(sd_conn, rcss, strlen(rcss));
+            memset(buff, 0, sizeof buff);
+            while ((leido = read(fd, buff, sizeof buff)) > 0) {
+                write(sd_conn, buff, sizeof buff);
+            }
+            write(sd_conn, "\n\n", 2);
+            break;
+
+        case 7:
+            write(sd_conn, rmd, strlen(rmd));
+            memset(buff, 0, sizeof buff);
+            while ((leido = read(fd, buff, sizeof buff)) > 0) {
+                write(sd_conn, buff, sizeof buff);
+            }
+            write(sd_conn, "\n\n", 2);
+            break;
+
+            //Cálculo de Pi (Simpson)
+
         case 11:
             met_it.it = 10;
             met_it.met = 'a';
@@ -95,6 +116,44 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
         case 100000001:
             met_it.it = 100000000;
             met_it.met = 'a';
+            return met_it;
+
+            //Cálculo de Pi (Montecarlo)
+        case 12:
+            met_it.it = 10;
+            met_it.met = 'b';
+            return met_it;
+            break;
+
+        case 1002:
+            met_it.it = 1000;
+            met_it.met = 'b';
+            return met_it;
+            break;
+
+        case 100002:
+            met_it.it = 100000;
+            met_it.met = 'b';
+            return met_it;
+
+        case 1000002:
+            met_it.it = 1000000;
+            met_it.met = 'b';
+            return met_it;
+
+        case 10000002:
+            met_it.it = 10000000;
+            met_it.met = 'b';
+            return met_it;
+
+        case 50000002:
+            met_it.it = 50000000;
+            met_it.met = 'b';
+            return met_it;
+
+        case 100000002:
+            met_it.it = 100000000;
+            met_it.met = 'b';
             return met_it;
     }
 
