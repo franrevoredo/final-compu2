@@ -15,14 +15,14 @@ crea la cantidad de hilos (arbitraria) para realizar los cálculos paralelizable
 
 ---
 
-** Lista de Cálculos Disponibles **
+**Lista de Cálculos Disponibles**
 
-1. ** Cálculo de Pi por Regla de Simpson **
-2. ** Cálculo de Pi por Montecarlo **
+1. **Cálculo de Pi por Regla de Simpson**
+2. **Cálculo de Pi por Montecarlo**
 
 ---
 
-** Descripción de los métodos y su implementación **
+**Descripción de los métodos y su implementación**
 
 1. La regla de simpson es un método de integración numérica para obtener la aproximación
  de una integral.
