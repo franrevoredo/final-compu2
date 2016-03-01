@@ -4,6 +4,9 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
 
     int checkext(char * arch);
 

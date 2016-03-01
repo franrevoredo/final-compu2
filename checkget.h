@@ -11,7 +11,9 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+    
+#include <string.h>
+    
     int checkget(char* metodo);
 
 

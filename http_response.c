@@ -1,5 +1,3 @@
-#include <unistd.h>
-#include <string.h>
 #include "http_response.h"
 
 met_it_t http_response(int mime, int sd_conn, int fd) {
@@ -159,5 +157,6 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
 
     met_it.it = 0;
     met_it.met = 0;
+    
     return met_it;
 }

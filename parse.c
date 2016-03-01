@@ -1,18 +1,13 @@
 #include "parse.h"
 
-
 http_req_t parse(int sd_conn) {
-
 
     char delim[] = "\n";
     char delim2[] = " ";
     char *token;
     char *token2;
-    
     int i = 0, len = 0;
-
     http_req_t req;
-
     char buff[4096];
 
     read(sd_conn, buff, sizeof buff);

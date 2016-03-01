@@ -6,8 +6,7 @@
 #include "parse.h"
 #include "write_result.h"
 
-
-/* Variables Compartidas */
+/* Variables Compartidas por los threads */
 
 long double sum = 0.0;
 

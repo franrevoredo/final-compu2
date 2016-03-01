@@ -1,10 +1,3 @@
-/* 
- * File:   http_worker.h
- * Author: francisco
- *
- * Created on September 27, 2015, 11:44 AM
- */
-
 #ifndef HTTP_WORKER_H
 #define	HTTP_WORKER_H
 
@@ -27,7 +20,6 @@ extern "C" {
 
 #define RES_LEN 256
 #define NUM_THREADS 2 
-
 
     struct sockaddr *cli_addr;
 
@@ -63,10 +55,7 @@ extern "C" {
 
     extern calc_result_t result;
 
-
-
     void http_worker(int sd_conn, struct sockaddr *cli_addr);
-
 
 #ifdef	__cplusplus
 }

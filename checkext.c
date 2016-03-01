@@ -1,6 +1,3 @@
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
 #include "checkext.h"
 
 int checkext(char *arch) {

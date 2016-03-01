@@ -1,4 +1,4 @@
-#include <string.h>
+#include "checkget.h"
 
 int checkget(char* metodo) {
     

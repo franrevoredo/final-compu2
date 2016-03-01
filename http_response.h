@@ -11,9 +11,10 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+#include <unistd.h>
+#include <string.h>
 #include "http_worker.h" 
-    
+
     met_it_t http_response(int mime, int sd_conn, int fd);
 
 
