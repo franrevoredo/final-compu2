@@ -55,7 +55,7 @@ extern "C" {
 
     extern calc_result_t result;
 
-    void http_worker(int sd_conn, struct sockaddr *cli_addr);
+    void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num);
 
 #ifdef	__cplusplus
 }

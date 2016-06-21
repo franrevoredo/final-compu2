@@ -1,5 +1,5 @@
-#ifndef THREAD_H
-#define	THREAD_H
+#ifndef SIMPSON_H
+#define	SIMPSON_H
 
 #ifdef	__cplusplus
 extern "C" {
@@ -11,10 +11,10 @@ extern "C" {
 #include "http_worker.h"
 
 
-    void * thread(void *arg);
+    void * simpson(void *arg);
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif	/* THREAD_H */
+#endif	/* SIMPSON_H */

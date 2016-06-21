@@ -11,17 +11,37 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <ctype.h>
 
 #include "http_worker.h"
 
 int main(int argc, char *const *argv) {
-    int sd, sd_conn;
+    int sd, sd_conn, c, thread_num = 2;
     int reuse = 1;
     socklen_t addrlen;
     struct sockaddr_in srv_addr;
     struct sockaddr_in cli_addr;
 
-    sd = socket(AF_INET, SOCK_STREAM, 0);
+while ((c = getopt (argc, argv, "t:")) != -1)
+    switch (c)
+      {
+      case 't':
+	if (atoi(optarg) > 0) {
+		thread_num = atoi(optarg); 
+	} else {
+        	write(2,"Argumento Incorrecto\n", 21);
+        	exit(EXIT_FAILURE); 
+	} 
+       break;
+      default:
+        abort ();
+      }   
+
+
+printf("\nEl nro de threads es: %d \n", thread_num);
+
+
+ sd = socket(AF_INET, SOCK_STREAM, 0);
 
     if (sd < 0) {
         perror("Error al abrir el SOCKET");
@@ -45,7 +65,7 @@ int main(int argc, char *const *argv) {
     while ((sd_conn = accept(sd, (struct sockaddr *) &cli_addr, &addrlen)) > 0) {
         switch (fork()) {
             case 0: // hijo
-                http_worker(sd_conn, (struct sockaddr *) &cli_addr);
+                http_worker(sd_conn, (struct sockaddr *) &cli_addr, thread_num);
                 return 0;
 
             case -1: // error

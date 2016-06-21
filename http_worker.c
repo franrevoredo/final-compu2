@@ -2,7 +2,8 @@
 #include "http_response.h"
 #include "checkget.h"
 #include "checkext.h"
-#include "thread.h"
+#include "simpson.h"
+#include "montecarlo.h"
 #include "parse.h"
 #include "write_result.h"
 
@@ -10,11 +11,11 @@
 
 long double sum = 0.0;
 
-void http_worker(int sd_conn, struct sockaddr *cli_addr) {
+void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
 
     //Inicio definicion para los threads
     params_t params;
-    pthread_t threads[NUM_THREADS];
+    pthread_t threads[thread_num];
     pthread_mutex_init(&params.mutex, NULL);
     //Fin definicion para los threads
 
@@ -84,30 +85,38 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr) {
 
         switch (met_it.met) {
             case 'a':
-                coef = met_it.it / NUM_THREADS; //Calculo cuantas iteraciones le corresponde a cada thread del pool.
+                coef = met_it.it / thread_num; //Calculo cuantas iteraciones le corresponde a cada thread del pool.
                 h = 1.0 / (long double) met_it.it;
                 break;
             case 'b':
-                coef = met_it.it / NUM_THREADS; //Calculo cuantas iteraciones le corresponde a cada thread del pool.
+                coef = met_it.it / thread_num; //Calculo cuantas iteraciones le corresponde a cada thread del pool.
                 break;
         }
 
 
-        params_t * params_array = malloc(NUM_THREADS * sizeof (params_t)); //Se crea un puntero para crear una estructura para cada thread.
+        params_t * params_array = malloc(thread_num * sizeof (params_t)); //Se crea un puntero para crear una estructura para cada thread.
 
-        for (i = 0; i < NUM_THREADS; i++) {
+        for (i = 0; i < thread_num; i++) {
 
             (params_array + i)->coef = coef;
             if (met_it.met == 'a') {
                 (params_array + i)->h = h;
             }
             (params_array + i)->method = met_it.met;
-            (params_array + i)->thr_id = i + 1;
+            (params_array + i)->thr_id = i + 1;	
+		
+		switch (met_it.met) {
+            case 'a':
+               pthread_create(&threads[i], NULL, simpson, &params_array[i]);
+                break;
+            case 'b':           
+               pthread_create(&threads[i], NULL, montecarlo, &params_array[i]);
+		break;
+        }							
 
-            pthread_create(&threads[i], NULL, thread, &params_array[i]);
-        }
+                    }
 
-        for (i = 0; i < NUM_THREADS; i++)
+        for (i = 0; i < thread_num; i++)
             pthread_join(threads[i], NULL); //Se espera a que los thread terminen de calcular
 
         pthread_mutex_destroy(&params.mutex); //Se destruye el mutex
