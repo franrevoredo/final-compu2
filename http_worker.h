@@ -33,6 +33,7 @@ extern "C" {
 
     typedef struct params { //Estructura que contiene el los parametros a enviar a cada thread
         pthread_mutex_t mutex;
+	pthread_cond_t done;
         unsigned long long int coef;
         int thr_id;
         long double h;

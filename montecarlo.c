@@ -28,11 +28,12 @@ void * montecarlo(void *arg) {
 	pthread_mutex_lock(&(*(params_t*) (arg)).mutex);
 	sum = sum + (long double) pcount;
 	pthread_mutex_unlock(&(*(params_t*) (arg)).mutex);
+        pthread_cond_signal (&(*(params_t*)(arg)).done);
 
 	printf("Thread: %d (%llu)\nPcount: %llu\n\n", id, coef, pcount);
 
 
-
+	free(arg);
 	pthread_exit(NULL);
 
 }

@@ -25,11 +25,12 @@ long double h = (*(params_t*) (arg)).h;
             pthread_mutex_lock(&(*(params_t*) (arg)).mutex);
             sum = sum + aux;
             pthread_mutex_unlock(&(*(params_t*) (arg)).mutex);
+		pthread_cond_signal (&(*(params_t*)(arg)).done);
 
             printf("Thread: %d (%d - %d)\nSum: %Lf\n\n", id, ini, j, aux);
 
 
-
+free(arg);
 pthread_exit(NULL);
 
 }

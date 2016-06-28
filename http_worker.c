@@ -18,6 +18,7 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
     pthread_t *threads;
     threads = malloc(thread_num * sizeof (pthread_t)); 
     pthread_mutex_init(&params.mutex, NULL);
+    pthread_cond_init (&params.done, NULL);
     //Fin definicion para los threads
 
     char urlaux[256] = "";
@@ -65,11 +66,11 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
             }
         }
 
-        if ((fd < 0) && (mime < 9)) {
+        if ((fd < 0) && (mime < 9) && req.url[0] != '/' ) {
             write(sd_conn, "404 File Not Found\n", 19);
             perror("File Not Found");
         } else {
-            write(1, "Ok (File)\n", 10);
+            write(1, "Ok (File)\n\n", 11);
             http_ok++;
         }
     } else
@@ -97,9 +98,9 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
 
         params_t * params_array = malloc(thread_num * sizeof (params_t)); //Se crea un puntero para crear una estructura para cada thread.
 
-        for (i = 0; i < thread_num; i++) {
-
-            (params_array + i)->coef = coef;
+	
+        for (i = 0; i < thread_num; i++) {	
+		 (params_array + i)->coef = coef;
             if (met_it.met == 'a') {
                 (params_array + i)->h = h;
             }
@@ -112,15 +113,15 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
                 break;
             case 'b':           
                pthread_create(&threads[i], NULL, montecarlo, &params_array[i]);
-		break;
-        }							
+break;				
 
-                    }
+	}
 
         for (i = 0; i < thread_num; i++)
             pthread_join(threads[i], NULL); //Se espera a que los thread terminen de calcular
 
         pthread_mutex_destroy(&params.mutex); //Se destruye el mutex
+	pthread_cond_destroy (&params.done);
 
         switch (met_it.met) {
             case 'a':
@@ -142,6 +143,7 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
         write_result(sd_conn, ms, met_it.it, met_it.met, result);
 
             }
+
 	free(threads);    
 	close(fd);
         close(sd_conn);
