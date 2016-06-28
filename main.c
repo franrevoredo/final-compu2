@@ -16,29 +16,38 @@
 #include "http_worker.h"
 
 int main(int argc, char *const *argv) {
-    int sd, sd_conn, c, thread_num = 2;
+    int sd, sd_conn, c, thread_num = 2, port_num = 5000;
     int reuse = 1;
     socklen_t addrlen;
     struct sockaddr_in srv_addr;
     struct sockaddr_in cli_addr;
 
-while ((c = getopt (argc, argv, "t:")) != -1)
+while ((c = getopt (argc, argv, "t:p:")) != -1)
     switch (c)
       {
-      case 't':
-	if (atoi(optarg) > 0) {
-		thread_num = atoi(optarg); 
-	} else {
-        	write(2,"Argumento Incorrecto\n", 21);
-        	exit(EXIT_FAILURE); 
-	} 
-       break;
-      default:
-        abort ();
+	case 't':
+		if (atoi(optarg) > 0) {
+			thread_num = atoi(optarg); 
+		} else {
+			fprintf(stderr, "Numero de Threads Invalido\n");
+        		exit(EXIT_FAILURE); 
+		}
+	break;
+	case 'p':
+		if (atoi(optarg) > 0) {
+			port_num = atoi(optarg); 
+		} else {
+			fprintf(stderr, "Puerto Invalido\n"); 
+        		exit(EXIT_FAILURE); 
+		} 
+		break;
+      	default:
+        	abort ();
       }   
 
 
 printf("\nEl nro de threads es: %d \n", thread_num);
+printf("\nEl nro de puerto es: %d \n", port_num);
 
 
  sd = socket(AF_INET, SOCK_STREAM, 0);
@@ -52,7 +61,7 @@ printf("\nEl nro de threads es: %d \n", thread_num);
 
     srv_addr.sin_family = AF_INET;
     srv_addr.sin_addr.s_addr = INADDR_ANY;
-    srv_addr.sin_port = htons(5000);
+    srv_addr.sin_port = htons(port_num);
 
     if (bind(sd, (struct sockaddr *) &srv_addr, sizeof (srv_addr)) == -1) {
         perror("Error en el BIND");
@@ -60,7 +69,7 @@ printf("\nEl nro de threads es: %d \n", thread_num);
 
     if (listen(sd, 5) < 0) {
         perror("Error en listen.");
-        return -1; }
+        exit(EXIT_FAILURE); }
 
     while ((sd_conn = accept(sd, (struct sockaddr *) &cli_addr, &addrlen)) > 0) {
         switch (fork()) {

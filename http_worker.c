@@ -15,7 +15,8 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
 
     //Inicio definicion para los threads
     params_t params;
-    pthread_t threads[thread_num];
+    pthread_t *threads;
+    threads = malloc(thread_num * sizeof (pthread_t)); 
     pthread_mutex_init(&params.mutex, NULL);
     //Fin definicion para los threads
 
@@ -66,7 +67,7 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
 
         if ((fd < 0) && (mime < 9)) {
             write(sd_conn, "404 File Not Found\n", 19);
-            perror("Destination open()");
+            perror("File Not Found");
         } else {
             write(1, "Ok (File)\n", 10);
             http_ok++;
@@ -140,11 +141,9 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num) {
 
         write_result(sd_conn, ms, met_it.it, met_it.met, result);
 
-
-
-        free(params_array);
-    }
-    close(fd);
-    close(sd_conn);
-    return;
+            }
+	free(threads);    
+	close(fd);
+        close(sd_conn);
+	return;
 }
