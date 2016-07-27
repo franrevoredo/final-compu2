@@ -30,7 +30,6 @@ long double h = (*(params_t*) (arg)).h;
             printf("Thread: %d (%d - %d)\nSum: %Lf\n\n", id, ini, j, aux);
 
 
-free(arg);
 pthread_exit(NULL);
 
 }

@@ -33,7 +33,7 @@ void * montecarlo(void *arg) {
 	printf("Thread: %d (%llu)\nPcount: %llu\n\n", id, coef, pcount);
 
 
-	free(arg);
+
 	pthread_exit(NULL);
 
 }
