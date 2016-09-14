@@ -1,15 +1,17 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
 #include <pthread.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <string.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
 #include <signal.h>
 #include <ctype.h>
 
@@ -76,7 +78,6 @@ int main(int argc, char *const *argv) {
         exit(EXIT_FAILURE); }
 
         addrlen = sizeof(cli_addr);
-
 
         while ((sd_conn = accept(sd, (struct sockaddr *) &cli_addr, &addrlen)) > 0) {
           switch (fork()) {
