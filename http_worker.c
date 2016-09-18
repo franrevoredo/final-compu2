@@ -7,11 +7,9 @@
 #include "parse.h"
 #include "write_result.h"
 
-/* Variables Compartidas por los threads */
-
 long double sum = 0.0;
 
-void http_worker (int sd_conn, struct sockaddr *cli_addr, int thread_num)
+void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num, sem_t * sem_id, shared_mem * shm_msg)
 {
 
   //Inicio definicion para los threads
@@ -157,11 +155,12 @@ void http_worker (int sd_conn, struct sockaddr *cli_addr, int thread_num)
 
     end = clock ();
 
-    sum = 0.0;		//Limpio la variable compartida
+    sum = 0.0;		
 
     ms = (double) (end - begin) / CLOCKS_PER_SEC;	//Se calcula el tiempo total del cálculo
 
-    write_result (sd_conn, ms, met_it.it, met_it.met, result);
+    write_result (sd_conn, ms, met_it.it, met_it.met, result); //Enviamos el resultado al modulo de escritura
+    shm_saveresult(result, sem_id, shm_msg); //Enviamos el resultado a memoria compartida
 
     free(params_array);
 

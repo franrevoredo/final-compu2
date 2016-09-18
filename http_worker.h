@@ -17,9 +17,12 @@ extern "C" {
 #include <time.h>
 #include <float.h>
 #include <math.h>
+#include <semaphore.h>
 
 #define RES_LEN 256
 #define NUM_THREADS 2 
+#define SHM_PATH  "/shmpath"
+#define SEM_PATH  "/sempath"
 
     struct sockaddr *cli_addr;
 
@@ -54,9 +57,20 @@ extern "C" {
         unsigned int integer;
     } calc_result_t;
 
+        /* El segemento de memoria compartida consiste de
+    un array de 10 elementos y un indicador de próxima posicion de escritura*/
+
+    typedef struct shared_data
+    {
+      long double last_sum[10];
+      int pos;
+    } shared_mem;
+
     extern calc_result_t result;
 
-    void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num);
+    sem_t * sem_id;
+
+    void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num, sem_t * sem_id, shared_mem * shm_msg);
 
 #ifdef	__cplusplus
 }
