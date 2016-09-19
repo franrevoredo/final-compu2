@@ -37,6 +37,10 @@ int checkext(char *arch) {
                             if (dif == 0) {
                                 return 7;
                             } else {
+                            dif = strcmp(token, "js");
+                            if (dif == 0) {
+                                return 8;
+                            } else {
                                 token2 = strrchr(token, '?'); //Si encuentra un '?' es por que no es un documento sino una operación
 
                                 if (token2[0] == '?') {
@@ -109,6 +113,7 @@ int checkext(char *arch) {
                                     }
                                 } else {
                                     return -1;
+                                    }
                                 }
                             }
                         }

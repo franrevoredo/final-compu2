@@ -1,18 +1,130 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Trabajo Final</title>
-        <link rel="stylesheet" type="text/css" href="./style.css">
-    </head>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Inicio</title>
+  </head><body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Trabajo Final</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="index.html">Página Principal</a>
+            </li>
+            <li>
+              <a href="desc.html">Descripción del Proyecto</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Lista de Cálculos:</h1>
+            <h3>Pi por método Simpson
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cantidad de Iteraciones
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="index.html?a1">10</a>
+                  </li>
+                  <li>
+                    <a href="index.html?a2">1000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?a3">100000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?a4">1000000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?a5">10000000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?a6">50000000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?a7">100000000</a>
+                  </li>
+                </ul>
+              </div>
+            </h3>
+            <h3>Pi por método Montecarlo
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cantidad de Iteraciones
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="index.html?b1">10</a>
+                  </li>
+                  <li>
+                    <a href="index.html?b2">1000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?b3">100000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?b4">1000000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?b5">10000000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?b6">50000000</a>
+                  </li>
+                  <li>
+                    <a href="index.html?b7">100000000</a>
+                  </li>
+                </ul>
+              </div>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="section section-primary">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <h1>Trabajo Final Computación 2</h1>
+            <p>Software para cálculos paralelizables, distribuidos en un número arbitrario
+              de threads. La interfaz de usuario está montanda en un servidor web (C),
+              con soporte Html+CSS.</p>
+              <p>
+              Por Francisco Revoredo.
+              </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="text-info text-right">
+              <br>
+              <br>
+            <div class="row">
+              <div class="col-md-12 hidden-xs text-right">
+                <a href="https://github.com/franrevoredo/final-compu2" target="_blank"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  
 
-    <body>
-        <h2>Lista de Cálculos:</h2>
-
-        <div id="pi1"><span id="title2">Calcular Pi (Simpson): </span><span id="links1"><a href="index.html?a1">10</a> - <a href="index.html?a2">1000</a> - <a href="index.html?a3">100000</a> - <a href="index.html?a4">1000000</a> - <a href="index.html?a5">10000000</a> - <a href="index.html?a6">50000000</a> - <a href="index.html?a7">100000000</a></span></div><br>
-        <div id="pi2"><span id="title2">Calcular Pi (Montecarlo): </span><span id="links1"><a href="index.html?b1">10</a> - <a href="index.html?b2">1000</a> - <a href="index.html?b3">100000</a> - <a href="index.html?b4">1000000</a> - <a href="index.html?b5">10000000</a> - <a href="index.html?b6">50000000</a> - <a href="index.html?b7">100000000</a></span></div>
-
-        <footer><br><br><a href="README.md">About</a></footer>
-    </body>
-
-</html> 
+</body></html>

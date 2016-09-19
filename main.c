@@ -76,7 +76,7 @@ int main(int argc, char *const *argv) {
       exit (1);
     }
 
-  fprintf (stdout, "Segmento de %d bytes cargado correctamente en memoria.\n", shm_seg_size);
+  fprintf (stdout, "\nSegmento de %d bytes cargado correctamente en memoria.\n", shm_seg_size);
 
   sem_id = sem_open (SEM_PATH, O_CREAT, S_IRUSR | S_IWUSR, 1); //Abrimos el semáforo
 
@@ -123,11 +123,13 @@ int main(int argc, char *const *argv) {
       break;
 
       default: // padre
+
       if(sd_conn < 0) {
         perror("Error en el Accept");
-        exit(EXIT_FAILURE); }
+        exit(EXIT_FAILURE); 
+      }
         inet_ntop(AF_INET6, &(cli_addr.sin6_addr),client_addr_ipv6, 100);
-        printf("Conexion IPv6 recibida: %s\n",client_addr_ipv6);
+        printf("Conexion Recibida: %s\n",client_addr_ipv6);
         close(sd_conn);
         break;
       }

@@ -2,7 +2,7 @@
 
 void sigint_handler(int signum)
 {
-  fprintf (stderr, "\n\n Señal nro %d (Interrupcion) atrapada. Cerrando el monitor de memoria compartida...\n\n", signum);
+  fprintf (stderr, "\n\n Signal nro %d (Interrupcion) atrapada. Cerrando los semaforos y el segmento de memoria compartida...\n\n", signum);
 
   if (shm_unlink (SHM_PATH) != 0)
     {

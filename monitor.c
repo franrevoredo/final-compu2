@@ -3,13 +3,14 @@
 void sigint_handler (int signum)
 {
   cont = 0;
-  fprintf (stderr, "\n\n Señal nro %d (Interrupcion) atrapada. Cerrando el monitor de memoria compartida...\n\n", signum);
+  fprintf (stderr, "\n\n Signal nro %d (Interrupcion) atrapada. Cerrando el monitor de memoria compartida...\n\n", signum);
 }
 
 
 int main ()
 {
-  int i,j,last_pos;
+  int i,last_pos;
+  int counter = 0;
   int shmfd;
   int shm_seg_size = (1 * sizeof (struct shared_data));	//El tamaño debe ser por lo menos del tamaño de la estructura
   struct shared_data *shared_msg;
@@ -23,9 +24,7 @@ int main ()
       exit (1);
     }
 
-  fprintf (stderr, "Abierto segmento de memoria -> %s\n", SHM_PATH);
-
-  
+    
   ftruncate (shmfd, shm_seg_size); // Truncamos el segmento con el tamaño de la estructura
 
   sem_id = sem_open (SEM_PATH, O_CREAT, S_IRUSR | S_IWUSR, 1);
@@ -39,15 +38,11 @@ int main ()
   fprintf (stderr, "Mapeado segmento de %d bytes en memoria.\n",
 	   shm_seg_size);
 
-  while (cont == 1)
+  while (cont == 1) //Imprimimos los ultimos resultados cada 10 segundos
     {
-      for(j=15;j>0;j--) {
-	printf("Refresco de Resultados en %d segundos.", j);
-      	printf ("\033c");
-      	sleep (1); 
-      }
-
-//Imprimimos los ultimos resultados cada 15 segundos
+      counter++;
+      printf ("\033c");
+      fprintf (stdout, "Abierto segmento de memoria -> %s\n\n", SHM_PATH);
       sem_wait (sem_id);
       printf ("Ultimos Resultados: \n");
       for (i = 0; i < 10; i++)
@@ -57,8 +52,10 @@ int main ()
        last_pos = shared_msg->pos - 1;
        if(last_pos < 0)
           last_pos = 0;
-      printf ("Ultima posicion escrita = %d \n\n", last_pos);
+      printf ("\nUltima posicion escrita = %d \n\n", last_pos);
       sem_post (sem_id);
+      printf ("Refresco nro: %d \n\n", counter);
+      sleep (10);
     }
 
   if (sem_close (sem_id) < 0)

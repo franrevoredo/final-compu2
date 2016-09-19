@@ -11,6 +11,7 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
     char rhtml[] = "HTTP/1.1 200 OK\nContent-Type: text/html; charset=utf-8\nConnection:close\n\n";
     char rico[] = "HTTP/1.1 200 OK\nContent-Type: image/x-icon; charset=utf-8\nConnection:close\n\n";
     char rcss[] = "HTTP/1.1 200 OK\nContent-Type: text/css; charset=utf-8\nConnection:close\n\n";
+    char rjs[] = "HTTP/1.1 200 OK\nContent-Type: application/javascript; charset=utf-8\nConnection:close\n\n";
     char rmd[] = "HTTP/1.1 200 OK\nContent-Type: text/markdown; charset=utf-8\nConnection:close\n\n";
 
     switch (mime) {
@@ -18,7 +19,7 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
             write(sd_conn, rhtml, strlen(rhtml));
             memset(buff, 0, sizeof buff);
             while ((leido = read(fd, buff, sizeof buff)) > 0) {
-                write(sd_conn, buff, sizeof buff);
+                write(sd_conn, buff, leido);
             }
             write(sd_conn, "\n\n", 2);
             break;
@@ -27,7 +28,7 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
             write(sd_conn, rjpg, strlen(rjpg));
             memset(buff, 0, sizeof buff);
             while ((leido = read(fd, buff, sizeof buff)) > 0) {
-                write(sd_conn, buff, sizeof buff);
+                write(sd_conn, buff, leido);
             }
             write(sd_conn, "\n\n", 2);
             break;
@@ -45,7 +46,7 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
             write(sd_conn, rpdf, strlen(rpdf));
             memset(buff, 0, sizeof buff);
             while ((leido = read(fd, buff, sizeof buff)) > 0) {
-                write(sd_conn, buff, sizeof buff);
+                write(sd_conn, buff, leido);
             }
             write(sd_conn, "\n\n", 2);
             break;
@@ -54,7 +55,7 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
             write(sd_conn, rico, strlen(rico));
             memset(buff, 0, sizeof buff);
             while ((leido = read(fd, buff, sizeof buff)) > 0) {
-                write(sd_conn, buff, sizeof buff);
+                write(sd_conn, buff, leido);
             }
             write(sd_conn, "\n\n", 2);
             break;
@@ -63,7 +64,7 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
             write(sd_conn, rcss, strlen(rcss));
             memset(buff, 0, sizeof buff);
             while ((leido = read(fd, buff, sizeof buff)) > 0) {
-                write(sd_conn, buff, sizeof buff);
+                write(sd_conn, buff, leido);
             }
             write(sd_conn, "\n\n", 2);
             break;
@@ -72,7 +73,16 @@ met_it_t http_response(int mime, int sd_conn, int fd) {
             write(sd_conn, rmd, strlen(rmd));
             memset(buff, 0, sizeof buff);
             while ((leido = read(fd, buff, sizeof buff)) > 0) {
-                write(sd_conn, buff, sizeof buff);
+                write(sd_conn, buff, leido);
+            }
+            write(sd_conn, "\n\n", 2);
+            break;
+
+        case 8:
+            write(sd_conn, rjs, strlen(rjs));
+            memset(buff, 0, sizeof buff);
+            while ((leido = read(fd, buff, sizeof buff)) > 0) {
+                write(sd_conn, buff, leido);
             }
             write(sd_conn, "\n\n", 2);
             break;

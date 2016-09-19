@@ -6,6 +6,7 @@
 #include "montecarlo.h"
 #include "parse.h"
 #include "write_result.h"
+#include "shm_saveresult.h"
 
 long double sum = 0.0;
 
@@ -68,7 +69,7 @@ void http_worker(int sd_conn, struct sockaddr *cli_addr, int thread_num, sem_t *
       {
         if (mime < 10)
         {		//Si el mime es menor a diez significa que el request es para abrir un archivo del servidor.
-          fd = open (urlaux, O_RDONLY, 0777);
+          fd = open (urlaux, O_RDONLY, 0664);
         }
       }
     }
